@@ -1,9 +1,6 @@
 package com.mockito;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.util.NestedServletException;
@@ -28,7 +24,7 @@ import com.mockito.resources.HelloResource;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserJsonTest {
+public class RestUserJsonTest {
 
 	private MockMvc mockMvc;
 	@InjectMocks
@@ -40,7 +36,6 @@ public class UserJsonTest {
 	}
 
 	@Test
-	@Ignore
 	public void testJsonLoginSuccess() throws Exception {
 		MvcResult result = mockMvc
 				.perform(post("/login").accept(MediaType.APPLICATION_JSON_VALUE).param("uname", "admin"))
@@ -50,7 +45,6 @@ public class UserJsonTest {
 	}
 
 	@Test
-	@Ignore
 	public void testXMLLoginSuccess() throws Exception {
 		MvcResult result = mockMvc
 				.perform(post("/login").accept(MediaType.APPLICATION_XML_VALUE).param("uname", "admin"))
@@ -61,7 +55,6 @@ public class UserJsonTest {
 
 	@Test(expected = NestedServletException.class)
 	@ExceptionHandler(value = RuntimeException.class)
-	@Ignore
 	public void testJsonLoginFail() throws Exception {
 		MvcResult result = mockMvc
 				.perform(post("/login").accept(MediaType.APPLICATION_JSON_VALUE).param("uname", "abc"))
